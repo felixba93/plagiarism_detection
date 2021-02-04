@@ -54,11 +54,11 @@ def get_texts(xml_file):
             break
     return texts
 
-def get_titles(xml_file):
+def get_titles(xml_file, num_documents):
     title_ids = {}
     index = 0
     for event, elem in ET.iterparse(xml_file, events = ("start", "end")):        
-        if index < 200:
+        if index < num_documents:
             if event == 'end' and "title" in elem.tag:
                 title_ids[index]=str(elem.text)
                 index += 1    
@@ -67,7 +67,7 @@ def get_titles(xml_file):
             break
     return title_ids           
                 
-def build_dictionary(xml_file):
+def build_dictionary(xml_file, num_documents):
     index = 0
     first_elem = True
     # loop through all nodes
